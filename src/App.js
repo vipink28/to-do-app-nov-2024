@@ -1,5 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
+import Navbar from './components/Navbar';
 import About from './pages/About';
 import CreateTask from './pages/CreateTask';
 import Home from './pages/Home';
@@ -11,6 +12,7 @@ import TaskList from './pages/TaskList';
 function App() {
   return (
     <BrowserRouter>
+      <Navbar />
       <Routes>
         <Route path='/' element={<Home />}></Route>
         <Route path='/about' element={<About />}></Route>
