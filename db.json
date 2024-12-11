@@ -5,6 +5,18 @@
       "email": "vipin@gmail.com",
       "password": "admin",
       "id": 1
+    },
+    {
+      "username": "Shubham",
+      "email": "shubham@gmail.com",
+      "password": "admin",
+      "id": 2
+    },
+    {
+      "username": "Pallavi",
+      "email": "pallavi@gmail.com",
+      "password": "admin",
+      "id": 3
     }
   ],
   "tasks": []
