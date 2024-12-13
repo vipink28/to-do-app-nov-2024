@@ -15,6 +15,7 @@ const Login = () => {
         if (response.ok) {
             const users = await response.json();
             if (users.length > 0) {
+                localStorage.setItem("todouser", JSON.stringify(users[0]))
                 alert("User found");
             } else {
                 alert("Email/password is incorrect");

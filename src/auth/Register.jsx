@@ -19,12 +19,23 @@ const Register = () => {
             body: JSON.stringify(formData)
         }
 
-        // fetch();
-        const response = await fetch('http://localhost:5001/users', config);
-        if (response.status === 201) {
-            alert("User registered successfully");
+        const checkUserResponse = await fetch(`http://localhost:5001/users?email=${formData.email}`, { method: "GET" });
+        if (checkUserResponse.ok) {
+            const user = await checkUserResponse.json();
+            if (user.length > 0) {
+                alert("User already exist");
+            } else {
+                const response = await fetch('http://localhost:5001/users', config);
+                if (response.status === 201) {
+                    const user = await response.json();
+                    localStorage.setItem("todouser", JSON.stringify(user))
+                    alert("User registered successfully");
+                } else {
+                    alert("Something went wrong, please try again");
+                }
+            }
         } else {
-            alert("Something went wrong, please try again");
+            alert("something went wrong");
         }
     }
 

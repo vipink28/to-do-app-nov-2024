@@ -17,6 +17,12 @@
       "email": "pallavi@gmail.com",
       "password": "admin",
       "id": 3
+    },
+    {
+      "username": "Vipin",
+      "email": "vipink28@gmail.com",
+      "password": "admin",
+      "id": 4
     }
   ],
   "tasks": []
