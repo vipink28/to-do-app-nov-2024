@@ -1,16 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../assets/logo.png';
+import AuthContext from '../auth/AuthContext';
 
 const Navbar = () => {
-    const [user, setUser] = useState(null);
-
-    useEffect(() => {
-        const local = JSON.parse(localStorage.getItem("todouser"));
-        if (local) {
-            setUser(local);
-        }
-    }, [])
+    const { user } = useContext(AuthContext);
 
     return (
         <nav className="navbar navbar-expand-lg bg-body-tertiary">

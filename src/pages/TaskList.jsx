@@ -1,8 +1,11 @@
-import React from 'react'
+import React from 'react';
 
 const TaskList = () => {
+
     return (
-        <div>TaskList</div>
+        <div>
+            TaskList
+        </div>
     )
 }
 
