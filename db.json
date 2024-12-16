@@ -23,6 +23,12 @@
       "email": "vipink28@gmail.com",
       "password": "admin",
       "id": 4
+    },
+    {
+      "username": "Shubham",
+      "email": "aman@gmail.com",
+      "password": "admin",
+      "id": 5
     }
   ],
   "tasks": []

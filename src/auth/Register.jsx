@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import AuthContext from './AuthContext';
 
 const Register = () => {
+    const { handleRegister } = useContext(AuthContext);
     const [formData, setFormData] = useState(null);
     const handleChange = (e) => {
         let { name, value } = e.target;
@@ -10,34 +12,10 @@ const Register = () => {
         }))
     }
 
-    const handleSubmit = async () => {
-        const config = {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(formData)
-        }
-
-        const checkUserResponse = await fetch(`http://localhost:5001/users?email=${formData.email}`, { method: "GET" });
-        if (checkUserResponse.ok) {
-            const user = await checkUserResponse.json();
-            if (user.length > 0) {
-                alert("User already exist");
-            } else {
-                const response = await fetch('http://localhost:5001/users', config);
-                if (response.status === 201) {
-                    const user = await response.json();
-                    localStorage.setItem("todouser", JSON.stringify(user))
-                    alert("User registered successfully");
-                } else {
-                    alert("Something went wrong, please try again");
-                }
-            }
-        } else {
-            alert("something went wrong");
-        }
+    const handleSubmit = () => {
+        handleRegister(formData);
     }
+
 
     return (
         <div className='py-2'>

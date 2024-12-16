@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import AuthContext from './AuthContext';
 
 const Login = () => {
+    const { handleLogin } = useContext(AuthContext);
     const [formData, setFormData] = useState(null);
     const handleChange = (e) => {
         let { name, value } = e.target;
@@ -10,20 +12,10 @@ const Login = () => {
         }))
     }
 
-    const handleSubmit = async () => {
-        const response = await fetch(`http://localhost:5001/users?email=${formData.email}&password=${formData.password}`, { method: "GET" });
-        if (response.ok) {
-            const users = await response.json();
-            if (users.length > 0) {
-                localStorage.setItem("todouser", JSON.stringify(users[0]))
-                alert("User found");
-            } else {
-                alert("Email/password is incorrect");
-            }
-        } else {
-            alert("Something went wrong, please try again");
-        }
+    const handleSubmit = () => {
+        handleLogin(formData);
     }
+
 
     return (
         <div className='py-2'>
