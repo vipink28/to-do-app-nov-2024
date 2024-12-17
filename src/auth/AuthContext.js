@@ -1,9 +1,12 @@
 import { createContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
+    // useNavigate hook is used to add redirection to a page in a function
+    const navigate = useNavigate();
 
 
     //register user
@@ -28,6 +31,7 @@ export const AuthProvider = ({ children }) => {
                     localStorage.setItem("todouser", JSON.stringify(user))
                     setUser(user);
                     alert("User registered successfully");
+                    navigate("/task-list")
                 } else {
                     alert("Something went wrong, please try again");
                 }
@@ -47,6 +51,7 @@ export const AuthProvider = ({ children }) => {
                 localStorage.setItem("todouser", JSON.stringify(users[0]))
                 setUser(users[0])
                 alert("User found");
+                navigate("/task-list")
             } else {
                 alert("Email/password is incorrect");
             }
@@ -56,12 +61,33 @@ export const AuthProvider = ({ children }) => {
     }
 
 
+    //logout
+    const logout = () => {
+        setUser(null);
+        localStorage.removeItem("todouser");
+        navigate("/login");
+    }
+
+    const checkUserStatus = async (email) => {
+        const response = await fetch(`http://localhost:5001/users?email=${email}`, { method: "GET" });
+        if (response.ok) {
+            const user = await response.json();
+            if (user.length > 0) {
+                setUser(user[0]);
+                navigate("/task-list");
+            } else {
+                localStorage.removeItem("todouser");
+            }
+        } else {
+            alert("Something went wrong")
+        }
+    }
 
 
     useEffect(() => {
         const local = JSON.parse(localStorage.getItem("todouser"));
         if (local) {
-            setUser(local);
+            checkUserStatus(local.email);
         }
     }, [])
 
@@ -69,7 +95,8 @@ export const AuthProvider = ({ children }) => {
         <AuthContext.Provider value={{
             user,
             handleLogin,
-            handleRegister
+            handleRegister,
+            logout
         }}>
             {children}
         </AuthContext.Provider>

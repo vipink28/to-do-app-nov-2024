@@ -4,7 +4,7 @@ import logo from '../assets/logo.png';
 import AuthContext from '../auth/AuthContext';
 
 const Navbar = () => {
-    const { user } = useContext(AuthContext);
+    const { user, logout } = useContext(AuthContext);
 
     return (
         <nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -43,10 +43,7 @@ const Navbar = () => {
                                             Dropdown
                                         </Link>
                                         <ul className="dropdown-menu">
-                                            <li><Link className="dropdown-item" to="#">Action</Link></li>
-                                            <li><Link className="dropdown-item" to="#">Another action</Link></li>
-                                            <li><hr className="dropdown-divider" /></li>
-                                            <li><Link className="dropdown-item" to="#">Something else here</Link></li>
+                                            <li><span onClick={logout} className="dropdown-item">Logout</span></li>
                                         </ul>
                                     </li>
                                     <li className="nav-item">
