@@ -2,7 +2,7 @@
   "users": [
     {
       "username": "Vipin Kumar",
-      "email": "vipins@gmail.com",
+      "email": "vipin@gmail.com",
       "password": "admin",
       "id": 1
     },
@@ -31,5 +31,12 @@
       "id": 5
     }
   ],
-  "tasks": []
+  "tasks": [
+    {
+      "title": "Meeting",
+      "description": "Meeting with client",
+      "duedate": "2024-12-25T09:16",
+      "id": 1
+    }
+  ]
 }

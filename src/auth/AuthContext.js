@@ -74,7 +74,6 @@ export const AuthProvider = ({ children }) => {
             const user = await response.json();
             if (user.length > 0) {
                 setUser(user[0]);
-                navigate("/task-list");
             } else {
                 localStorage.removeItem("todouser");
             }
