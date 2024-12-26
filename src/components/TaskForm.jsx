@@ -8,9 +8,9 @@ const TaskForm = (props) => {
         description: "",
         duedate: ""
     }
-    const { addTask } = useContext(TaskContext);
+    const { addTask, updateTask } = useContext(TaskContext);
     const { user } = useContext(AuthContext);
-    const { isUpdate, data } = props;
+    const { isUpdate, data, setIsUpdate } = props;
 
     const [formData, setFormData] = useState(init);
     const handleChange = (e) => {
@@ -33,10 +33,17 @@ const TaskForm = (props) => {
         addTask(formData);
     }
 
+    const handleCancel = () => {
+        setIsUpdate(false);
+        setFormData(init);
+    }
+    const handleUpdate = () => {
+        updateTask(formData);
+    }
+
     return (
         <div className="p-2">
             <h1 className="text-white mb-3">{isUpdate ? "Update Task" : "Create Task"}</h1>
-
             <div className="card">
                 <div className="card-body">
                     <div className="mb-3">
@@ -57,8 +64,8 @@ const TaskForm = (props) => {
                     {
                         isUpdate ?
                             <>
-                                <button className="btn btn-primary">Update Task</button>
-                                <button className="btn btn-warning ms-2">Cancel</button>
+                                <button onClick={handleUpdate} className="btn btn-primary">Update Task</button>
+                                <button onClick={handleCancel} className="btn btn-warning ms-2">Cancel</button>
                             </>
                             :
                             <button onClick={handleTask} className="btn btn-primary">Add Task</button>

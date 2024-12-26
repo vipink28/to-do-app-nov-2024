@@ -51,6 +51,31 @@ export const TaskProvider = ({ children }) => {
         }
     }
 
+
+    // update task
+
+    const updateTask = async (formData) => {
+        const config = {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(formData)
+        }
+
+        try {
+            const response = await fetch(`http://localhost:5001/tasks/${formData.id}`, config);
+            if (response.ok) {
+                alert("Task updated successfully")
+            } else {
+                alert("Something went wrong");
+            }
+        } catch (error) {
+
+        }
+    }
+
+
     useEffect(() => {
         if (user) {
             getAllTasks(user.id);
@@ -62,7 +87,8 @@ export const TaskProvider = ({ children }) => {
             addTask,
             latestTask,
             recentTasks,
-            allTasks
+            allTasks,
+            updateTask
         }}>
             {children}
         </TaskContext.Provider>
