@@ -24,10 +24,10 @@ const TaskForm = (props) => {
     }
 
     useEffect(() => {
-        if (isUpdate) {
+        if (isUpdate && data) {
             setFormData(data);
         }
-    }, [isUpdate])
+    }, [isUpdate, data])
 
     const handleTask = () => {
         addTask(formData);

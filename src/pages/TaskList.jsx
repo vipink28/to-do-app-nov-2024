@@ -1,13 +1,24 @@
 import { faEye, faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useReducer, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Popup from '../components/Popup';
 import TaskContext from '../context/TaskContext';
 
+const reducer = (state, action) => {
+    switch (action.type) {
+        case "VIEW": return { type: "view", data: action.payload };
+        case "EDIT": return { type: "edit", data: action.payload };
+        case "DELETE": return { type: "delete", data: action.payload };
+        default: return state;
+    }
+}
+
 const TaskList = () => {
+    const init = { type: null, data: null };
     const { allTasks } = useContext(TaskContext);
     const [filteredTasks, setFilteredTasks] = useState(null);
+    const [state, dispatch] = useReducer(reducer, init);
 
     useEffect(() => {
         if (allTasks) {
@@ -56,13 +67,13 @@ const TaskList = () => {
                                     <div className='col-lg-4'>{item.description}</div>
                                     <div className='col-lg-2'>{item.duedate}</div>
                                     <div className='col-lg-2'>
-                                        <span className='px-2' data-bs-toggle="modal" data-bs-target="#task-popup">
+                                        <span className='px-2' data-bs-toggle="modal" data-bs-target="#task-popup" onClick={() => dispatch({ type: "VIEW", payload: item })}>
                                             <FontAwesomeIcon icon={faEye} />
                                         </span>
-                                        <span className='px-2' data-bs-toggle="modal" data-bs-target="#task-popup">
+                                        <span className='px-2' data-bs-toggle="modal" data-bs-target="#task-popup" onClick={() => dispatch({ type: "EDIT", payload: item })}>
                                             <FontAwesomeIcon icon={faPenToSquare} />
                                         </span>
-                                        <span className='px-2' data-bs-toggle="modal" data-bs-target="#task-popup">
+                                        <span className='px-2' data-bs-toggle="modal" data-bs-target="#task-popup" onClick={() => dispatch({ type: "DELETE", payload: item })}>
                                             <FontAwesomeIcon icon={faTrash} />
                                         </span>
                                     </div>
@@ -74,7 +85,7 @@ const TaskList = () => {
                 </div>
 
             </div>
-            <Popup />
+            <Popup task={state} />
         </div>
     )
 }
