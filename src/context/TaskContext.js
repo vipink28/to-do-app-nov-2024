@@ -22,8 +22,8 @@ export const TaskProvider = ({ children }) => {
         try {
             const response = await fetch(`http://localhost:5001/tasks`, config)
             if (response.status === 201) {
-
                 alert("Task added successfully");
+                getAllTasks(user.id);
             } else {
                 alert("Somthing went wrong")
             }
@@ -67,6 +67,7 @@ export const TaskProvider = ({ children }) => {
             const response = await fetch(`http://localhost:5001/tasks/${formData.id}`, config);
             if (response.ok) {
                 alert("Task updated successfully")
+                getAllTasks(user.id);
             } else {
                 alert("Something went wrong");
             }
@@ -75,6 +76,25 @@ export const TaskProvider = ({ children }) => {
         }
     }
 
+
+    //delete task
+    const deleteTask = async (id) => {
+        const config = {
+            method: "DELETE"
+        }
+
+        try {
+            const response = await fetch(`http://localhost:5001/tasks/${id}`, config);
+            if (response.ok) {
+                alert("Task deleted successfully");
+                getAllTasks(user.id);
+            } else {
+                alert("Something went wrong");
+            }
+        } catch (error) {
+
+        }
+    }
 
     useEffect(() => {
         if (user) {
@@ -88,7 +108,8 @@ export const TaskProvider = ({ children }) => {
             latestTask,
             recentTasks,
             allTasks,
-            updateTask
+            updateTask,
+            deleteTask
         }}>
             {children}
         </TaskContext.Provider>

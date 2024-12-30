@@ -10,7 +10,7 @@ const TaskForm = (props) => {
     }
     const { addTask, updateTask } = useContext(TaskContext);
     const { user } = useContext(AuthContext);
-    const { isUpdate, data, setIsUpdate } = props;
+    const { isUpdate, data, setIsUpdate, isPopup, closeBtn } = props;
 
     const [formData, setFormData] = useState(init);
     const handleChange = (e) => {
@@ -34,7 +34,11 @@ const TaskForm = (props) => {
     }
 
     const handleCancel = () => {
-        setIsUpdate(false);
+        if (isPopup) {
+            closeBtn.current.click();
+        } else {
+            setIsUpdate(false);
+        }
         setFormData(init);
     }
     const handleUpdate = () => {
